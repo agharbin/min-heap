@@ -5,7 +5,7 @@
 
 class minheap {
     public:
-        void insert(int key, int val);
+        void insert(int val, int key);
         int pop();
         void reduce_key(int val, int new_key);
         bool empty();
@@ -24,7 +24,7 @@ class minheap {
         void swap(int i, int j);
 };
 
-void minheap::insert(int key, int val) {
+void minheap::insert(int val, int key) {
     heap.push_back(std::make_pair(key, val));
     indexes[val] = heap.size() - 1;
     bubble_up(heap.size() - 1);
@@ -58,10 +58,10 @@ void minheap::bubble_up(int i) {
 
 void minheap::trickle_down(int i) {
     while(first_child(i) < heap.size() && 
-            second_child(i) < heap.size() && 
+            //second_child(i) < heap.size() && 
             ( heap[i].first > heap[first_child(i)].first || heap[i].first > heap[second_child(i)].first )) {
     
-        if(heap[first_child(i)].first < heap[second_child(i)].first) {
+        if(second_child(i) >= heap.size() || heap[first_child(i)].first < heap[second_child(i)].first) {
             swap(i, first_child(i));
             i = first_child(i);
         } else {
