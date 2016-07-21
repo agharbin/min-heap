@@ -29,23 +29,22 @@ bool test_insert() {
 bool test_reduce_key() {
     minheap h;
 
-    h.insert(1,15);
-    h.insert(2,14);
-    h.insert(3,13);
-    h.insert(4,12);
-    h.insert(5,11);
+    int key;
+    for(int i = 0; i < 100; ++i) {
+        key = rand() % 1000;
+        h.insert(i,key + 100);
+    }
 
-    h.reduce_key(1,1);
-    h.reduce_key(2,2);
-    h.reduce_key(3,3);
-    h.reduce_key(4,4);
-    h.reduce_key(5,5);
+    for(int i = 0; i < 100; ++i) {
+        h.reduce_key(i,i);
+    }
 
     std::vector<int> list;
     while(!h.empty()) {
         int item = h.pop();
         list.push_back(item);
     }
+
     if(std::is_sorted(list.begin(), list.end())) {
         return true;
     } else {
